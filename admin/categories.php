@@ -1,12 +1,6 @@
 <?php include "includes/admin_header.php"; ?>
 <div id="wrapper">
-
-
-
-
     <?php include "includes/admin_navigation.php" ?>
-
-
     <div id="page-wrapper">
         <div class="container-fluid">
             <div class="row">
@@ -18,29 +12,22 @@
                         </small>
                     </h1>
                     <div class="col-xs-6">
-                    <?php
-                    if(isset($_POST['submit'])){
-
-                        $cat_title = $_POST['cat_title'];
-
-
-                        if($cat_title == "" || empty($cat_title)){
-                            echo "this field shouldnt be empty";
-                        } else {
-
-                            $query = "INSERT INTO categories(cat_title) ";
-                            $query .= "VALUE('{$cat_title}') ";
-
-                            $create_category_query = mysqli_query($connection, $query);
-                            if (!$create_category_query){
-                                die('QUERY FAILED' . mysqli_error($connection));
+                        <?php
+                        if (isset($_POST['submit'])) {
+                            $cat_title = $_POST['cat_title'];
+                            if ($cat_title == "" || empty($cat_title)) {
+                                echo "this field shouldnt be empty";
+                            } else {
+                                $query = "INSERT INTO categories(cat_title) ";
+                                $query .= "VALUE('{$cat_title}') ";
+                                $create_category_query = mysqli_query($connection, $query);
+                                if (!$create_category_query) {
+                                    die('QUERY FAILED' . mysqli_error($connection));
+                                }
                             }
-
                         }
 
-                    }
-                    
-                    ?>
+                        ?>
                         <form action="" method="post">
                             <div class="form-group">
                                 <label class="form-group" for="cat-title">Category Name</label>
@@ -50,6 +37,17 @@
                                 <input class="btn btn-primary" type="submit" name="submit" value="Add Category">
                             </div>
                         </form>
+
+
+                                <?php
+
+                                if (isset($_GET['edit'])){
+
+                                    $cat_id = $_GET['edit'];
+                                    include "includes/update_categories.php";
+                                    
+                                }
+                                ?>
                     </div>
                     <div class="col-xs-6">
                         <table class="table table-bordered table-hover">
@@ -74,6 +72,7 @@
 
                                     echo "<td>{$cat_id}</td>";
                                     echo "<td>{$cat_title}</td>";
+                                    echo "<td><a href='categories.php?edit={$cat_id}'>Update</a></td>";
                                     echo "<td><a href='categories.php?delete={$cat_id}'>Delete</a></td>";
 
                                     echo "</tr>";
@@ -82,16 +81,15 @@
 
 
                                 <?php
-                                
-                                if(isset($_GET['delete'])){
 
-                                    $id_to_delete= $_GET['delete'];
+                                if (isset($_GET['delete'])) {
+
+                                    $id_to_delete = $_GET['delete'];
                                     $query = "DELETE FROM categories WHERE  cat_id = {$id_to_delete} ";
                                     $delete_query = mysqli_query($connection, $query);
                                     header("Location: categories.php");
-
                                 }
-                                
+
                                 ?>
                             </tbody>
                         </table>
