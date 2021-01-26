@@ -2,6 +2,7 @@
     <div id="wrapper">
 
 
+<?php if($connetion) echo "Connected"?>
 
         <!-- Navigation -->
  
