@@ -15,7 +15,7 @@
                         <?php
 
 
-insert_categories();
+                        insert_categories();
 
                         ?>
                         <form action="" method="post">
@@ -48,19 +48,11 @@ insert_categories();
                             </thead>
                             <tbody>
                                 <?php
-findAllCategories();
-
-
+                                findAllCategories();
                                 ?>
-
-
-
-
                                 <?php
 
                                 delete_categories();
-
-
                                 ?>
                             </tbody>
                         </table>
